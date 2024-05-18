@@ -1,10 +1,17 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IUser } from 'src/modules/users/interfaces/user.interface';
-import { IResponseDto } from 'src/shared/types';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { IsMatch } from 'src/shared/decorators/is-match.decorator';
+import { IResponseData } from 'src/shared/interfaces/shared.interfaces';
 
-export class UserResponseDto implements IResponseDto<IUser> {
+export class GetUserSuccessResponseDto implements IResponseData<IUser> {
+  @ApiProperty({
+    type: Boolean,
+    description: 'Api status',
+    example: true,
+  })
+  success: boolean;
+
   @ApiProperty({
     type: String,
     description: 'Message from api',
@@ -26,7 +33,14 @@ export class UserResponseDto implements IResponseDto<IUser> {
   data: IUser;
 }
 
-export class UsersResponseDto implements IResponseDto<IUser[]> {
+export class GetUsersSuccessResponseDto implements IResponseData<IUser[]> {
+  @ApiProperty({
+    type: Boolean,
+    description: 'Api status',
+    example: true,
+  })
+  success: boolean;
+
   @ApiProperty({
     type: String,
     description: 'Message from api',
@@ -50,7 +64,14 @@ export class UsersResponseDto implements IResponseDto<IUser[]> {
   data: IUser[];
 }
 
-export class CreateUserResponseDto {
+export class CreateUserResponseDto implements IResponseData<IUser> {
+  @ApiProperty({
+    type: Boolean,
+    description: 'Api status',
+    example: true,
+  })
+  success: boolean;
+
   @ApiProperty({
     description: 'Response message',
     example: 'User created successfully',
@@ -72,7 +93,7 @@ export class CreateUserResponseDto {
   data: IUser;
 }
 
-export class CreateUserDto {
+export class CreateUserRequestDto {
   @IsString()
   @IsNotEmpty({ message: 'First name is mandatory' })
   @ApiProperty({
@@ -115,10 +136,32 @@ export class CreateUserDto {
   confirmPassword: string;
 }
 
-export class CreateUserErrorResponseDto {
+export class CreateUserErrorResponseDto implements IResponseData<null> {
+  @ApiProperty({
+    type: Boolean,
+    description: 'Api status',
+    example: false,
+  })
+  success: boolean;
+
   @ApiProperty({
     description: 'Response error message',
     example: 'Email already registered, try logging in',
+  })
+  message: string;
+}
+
+export class GetUserBadRequestErrorResponseDto implements IResponseData<null> {
+  @ApiProperty({
+    type: Boolean,
+    description: 'Api status',
+    example: false,
+  })
+  success: boolean;
+
+  @ApiProperty({
+    description: 'Response error message',
+    example: 'Unable to retrieve user',
   })
   message: string;
 }

@@ -13,11 +13,27 @@ export class UserService {
     private readonly responseService: ResponseService,
   ) {}
 
-  async getUser(email: string) {
+  async getUserByEmail(email: string) {
     this.logger.log('Request to get user by email', { email });
     const user = await this.userRepository.getUserByEmail(email);
     if (!user) {
       this.logger.error('Unable to retrieve user with the email: ', { email });
+      return this.responseService.returnResult({
+        success: false,
+        message: 'Unable to retrieve user',
+      });
+    }
+    return this.responseService.returnResult({
+      success: true,
+      message: 'User gotten successfully',
+      data: user,
+    });
+  }
+  async getUserById(id: string) {
+    this.logger.log('Request to get user by id', { id });
+    const user = await this.userRepository.getUserById(id);
+    if (!user) {
+      this.logger.error('Unable to retrieve user with the id: ', { id });
       return this.responseService.returnResult({
         success: false,
         message: 'Unable to retrieve user',
