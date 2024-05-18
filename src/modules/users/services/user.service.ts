@@ -2,6 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { UserRepository } from '../repositories/user.repo';
 import { ResponseService } from '../../../shared/utils/respond.service';
 import { IResponseData } from 'src/shared/interfaces/shared.interfaces';
+import { TCreateUser } from '../interfaces/user.interface';
+import { v4 } from 'uuid';
 
 @Injectable()
 export class UserService {
@@ -38,6 +40,25 @@ export class UserService {
       success: true,
       message: 'Users retrieved successfully',
       data: users,
+    });
+  }
+
+  async createUser(createUserDto: TCreateUser): Promise<IResponseData> {
+    this.logger.log('Creating a new user', { createUserDto });
+    let user = await this.userRepository.getUserByEmail(createUserDto.email);
+    if (user)
+      return this.responseService.failResult(
+        'Email already registered, try logging in',
+      );
+
+    user = await this.userRepository.createUser({
+      id: v4(),
+      ...(createUserDto as TCreateUser),
+    });
+    return this.responseService.returnResult({
+      success: true,
+      message: 'User created successfully',
+      data: user,
     });
   }
 }
