@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Response } from 'express';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -13,10 +14,19 @@ describe('AppController', () => {
 
     appController = app.get<AppController>(AppController);
   });
+  describe('getWelcome', () => {
+    it('should return "Welcome to Niyo-Todo"', () => {
+      const mockResponse = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockReturnThis(),
+      } as unknown as Response;
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
+      appController.getWelcome(mockResponse);
+
+      expect(mockResponse.status).toHaveBeenCalledWith(200);
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        message: 'Welcome to Niyo-Todo',
+      });
     });
   });
 });

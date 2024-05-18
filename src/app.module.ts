@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import configuration from './config/configuration';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
       isGlobal: true,
     }),
     SequelizeModule.forRoot(configuration.database),
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
