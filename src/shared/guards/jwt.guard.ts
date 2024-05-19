@@ -7,12 +7,14 @@ import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 import { Observable } from 'rxjs';
 import { IS_PUBLIC_KEY } from '../decorators/public.route.decorator';
+import { IJwtPayload } from '../interfaces/shared.interfaces';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
   constructor(private reflector: Reflector) {
     super();
   }
+
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
@@ -26,12 +28,12 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     return super.canActivate(context);
   }
 
-  handleRequest<TUser = any>(err: any, user: any): TUser {
+  handleRequest<TUser = IJwtPayload>(err: any, user: TUser): TUser {
     if (err || !user) {
       throw (
         err ||
         new UnauthorizedException(
-          'You are not logged in. please login and try again ',
+          'You are not logged in. Please log in and try again.',
         )
       );
     }

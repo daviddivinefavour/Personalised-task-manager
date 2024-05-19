@@ -28,6 +28,10 @@ async function bootstrap() {
       .setTitle('Niyo todo API service')
       .setDescription('The backend service call for Niyo todo  backend')
       .setVersion('1.0')
+      .addBearerAuth(
+        { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+        'access-token',
+      )
       .build();
 
     const document = SwaggerModule.createDocument(app, config);

@@ -6,5 +6,11 @@ export const TOKEN_SECRET =
 export enum Tables {
   USERS = 'users',
   AUTHENTICATION = 'authentications',
-  TODO = 'todos',
+  TASKS = 'tasks',
+}
+
+export enum TASK_STATUS {
+  PENDING = 'pending',
+  IN_PROGRESS = 'in-progress',
+  COMPLETED = 'completed',
 }

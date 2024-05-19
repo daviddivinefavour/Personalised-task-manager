@@ -23,6 +23,7 @@ import {
   GetUserSuccessResponseDto,
   GetUserBadRequestErrorResponseDto,
 } from 'src/Dtos/user.dto';
+import { Public } from 'src/shared/decorators/public.route.decorator';
 
 @Controller('users')
 @ApiTags('Users')
@@ -30,6 +31,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
+  @Public()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Get all users',
@@ -72,6 +74,7 @@ export class UserController {
   }
 
   @Get(':id')
+  @Public()
   @ApiOperation({
     summary: 'Get a user by ID',
     description: 'Endpoint to fetch a new user by providing user ID',

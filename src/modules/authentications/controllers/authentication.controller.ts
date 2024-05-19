@@ -67,6 +67,7 @@ export class AuthenticationController {
   }
 
   @Post('/register')
+  @Public()
   @ApiOperation({
     summary: 'Create a new user',
     description: 'Endpoint to create a new user',
