@@ -13,3 +13,13 @@ export interface IResponseData<
   message?: string;
   data?: T;
 }
+
+export interface PaginationResult<T> {
+  data: T[];
+  pagination: {
+    totalItems: number;
+    totalPages: number;
+    currentPage: number;
+    pageSize: number;
+  };
+}

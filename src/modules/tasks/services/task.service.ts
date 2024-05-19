@@ -4,6 +4,7 @@ import { ResponseService } from '../../../shared/utils/respond.service';
 import { IResponseData } from 'src/shared/interfaces/shared.interfaces';
 import { ICreateTask, IUpdateTask } from '../interfaces/task.interface';
 import { v4 } from 'uuid';
+import { HelpersService } from 'src/shared/utils/helpers';
 
 @Injectable()
 export class TaskService {
@@ -11,6 +12,7 @@ export class TaskService {
     private readonly taskRepository: TaskRepository,
     private readonly logger: Logger,
     private readonly responseService: ResponseService,
+    private readonly helperService: HelpersService,
   ) {}
 
   async getTaskById(id: string, userId: string): Promise<IResponseData> {
@@ -26,10 +28,18 @@ export class TaskService {
     });
   }
 
-  async getTasksByUserId(userId: string): Promise<IResponseData> {
+  async getTasksByUserId(
+    userId: string,
+    page: number,
+    limit: number,
+  ): Promise<IResponseData> {
     this.logger.log('Request to get tasks by userId', { userId });
-    const tasks = await this.taskRepository.getTasksByUserId(userId);
-    if (!tasks || tasks.length === 0) {
+    const tasks = await this.taskRepository.getTasksByUserId(
+      userId,
+      page,
+      limit,
+    );
+    if (!tasks) {
       this.logger.error('Unable to retrieve tasks for the userId: ', {
         userId,
       });
@@ -37,10 +47,11 @@ export class TaskService {
         'Unable to retrieve tasks for the user',
       );
     }
+    const paginatedData = this.helperService.paginate(tasks, page, limit);
     return this.responseService.returnResult({
       success: true,
       message: 'Tasks retrieved successfully',
-      data: tasks,
+      data: paginatedData,
     });
   }
 
@@ -73,9 +84,11 @@ export class TaskService {
     });
   }
 
-  async deleteTask(id: string): Promise<IResponseData> {
-    this.logger.log('Request to delete task', { id });
-    const numberOfDeletedRows = await this.taskRepository.deleteTask(id);
+  async deleteTask(id: string, userId: string): Promise<IResponseData> {
+    const numberOfDeletedRows = await this.taskRepository.deleteTask(
+      id,
+      userId,
+    );
     if (numberOfDeletedRows === 0) {
       this.logger.error('Unable to delete task with id: ', { id });
       return this.responseService.failResult('Unable to delete task');

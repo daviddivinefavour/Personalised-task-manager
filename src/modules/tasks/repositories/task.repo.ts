@@ -33,11 +33,20 @@ export class TaskRepository {
     });
   }
 
-  async deleteTask(taskId: string): Promise<number> {
-    return this.taskEntity.destroy({ where: { id: taskId } });
+  async deleteTask(taskId: string, userId: string): Promise<number> {
+    return this.taskEntity.destroy({ where: { id: taskId, userId } });
   }
 
-  async getTasksByUserId(userId: string): Promise<Task[]> {
-    return this.taskEntity.findAll({ where: { userId } });
+  async getTasksByUserId(
+    userId: string,
+    page: number,
+    limit: number,
+  ): Promise<{ rows: Task[]; count: number }> {
+    const offset = (page - 1) * limit;
+    return this.taskEntity.findAndCountAll({
+      where: { userId },
+      offset,
+      limit,
+    });
   }
 }
