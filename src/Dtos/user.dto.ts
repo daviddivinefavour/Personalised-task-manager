@@ -3,6 +3,10 @@ import { IUser } from 'src/modules/users/interfaces/user.interface';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { IsMatch } from 'src/shared/decorators/is-match.decorator';
 import { IResponseData } from 'src/shared/interfaces/shared.interfaces';
+import {
+  ISuccessfulAuthenticationData,
+  ISignUp,
+} from 'src/modules/authentications/interfaces/authentication.interface';
 
 export class GetUserSuccessResponseDto implements IResponseData<IUser> {
   @ApiProperty({
@@ -27,7 +31,6 @@ export class GetUserSuccessResponseDto implements IResponseData<IUser> {
       firstName: 'John',
       lastName: 'Doe',
       email: 'johndoe@example.com',
-      verifiedAt: new Date().toISOString(),
     },
   })
   data: IUser;
@@ -57,14 +60,15 @@ export class GetUsersSuccessResponseDto implements IResponseData<IUser[]> {
         firstName: 'John',
         lastName: 'Doe',
         email: 'johndoe@example.com',
-        verifiedAt: new Date().toISOString(),
       },
     ],
   })
   data: IUser[];
 }
 
-export class CreateUserResponseDto implements IResponseData<IUser> {
+export class CreateUserResponseDto
+  implements IResponseData<ISuccessfulAuthenticationData>
+{
   @ApiProperty({
     type: Boolean,
     description: 'Api status',
@@ -74,26 +78,29 @@ export class CreateUserResponseDto implements IResponseData<IUser> {
 
   @ApiProperty({
     description: 'Response message',
-    example: 'User created successfully',
+    example: 'Account registered successfully',
   })
   message: string;
 
   @ApiProperty({
-    description: 'User ID',
+    description: 'Login response data object',
     example: {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'user@example.com',
-      updatedAt: '2024-05-18T20:51:19.471Z',
-      createdAt: '2024-05-18T20:51:19.471Z',
-      verifiedAt: null,
-      deletedAt: null,
+      user: {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'user@example.com',
+        updatedAt: '2024-05-18T20:51:19.471Z',
+        createdAt: '2024-05-18T20:51:19.471Z',
+        deletedAt: null,
+      },
+      token:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImZkOGFlMGMxLTkzZTUtNDNiMS05OGMzLWY2NjY3NjE0MjU3ZCIsImVtYWlsIjoidXNlcjFAZXhhbXBsZS5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwMTIyNDA5OSwiZXhwIjoxNzAxNDgzMjk5fQ.CmGBWoTPWGHPPTpf_TN8KfgdzbZFSXQX_35yuHB_1xg',
     },
   })
-  data: IUser;
+  data: ISuccessfulAuthenticationData;
 }
 
-export class CreateUserRequestDto {
+export class CreateUserRequestDto implements ISignUp {
   @IsString()
   @IsNotEmpty({ message: 'First name is mandatory' })
   @ApiProperty({
@@ -148,7 +155,7 @@ export class CreateUserErrorResponseDto implements IResponseData<null> {
     description: 'Response error message',
     example: 'Email already registered, try logging in',
   })
-  message: string;
+  error: string;
 }
 
 export class GetUserBadRequestErrorResponseDto implements IResponseData<null> {
@@ -163,5 +170,5 @@ export class GetUserBadRequestErrorResponseDto implements IResponseData<null> {
     description: 'Response error message',
     example: 'Unable to retrieve user',
   })
-  message: string;
+  error: string;
 }

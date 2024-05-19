@@ -1,24 +1,17 @@
 import {
-  Body,
   Controller,
   Get,
   HttpCode,
   HttpStatus,
-  NotFoundException,
   Param,
   ParseUUIDPipe,
-  Post,
   Query,
   Res,
-  UsePipes,
-  ValidationPipe,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from '../services/user.service';
 import {
   ApiBadRequestResponse,
-  ApiCreatedResponse,
-  ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
   ApiParam,
@@ -26,14 +19,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import {
-  CreateUserRequestDto,
-  CreateUserErrorResponseDto,
-  CreateUserResponseDto,
   GetUsersSuccessResponseDto,
   GetUserSuccessResponseDto,
   GetUserBadRequestErrorResponseDto,
 } from 'src/Dtos/user.dto';
-import { v4 } from 'uuid';
 
 @Controller('users')
 @ApiTags('Users')
@@ -75,36 +64,11 @@ export class UserController {
   ): Promise<Response> {
     const users = await this.userService.getUsers(page, limit);
     if (!users.success) {
-      return res.status(400).json({ error: users.message });
+      return res.status(HttpStatus.BAD_REQUEST).json({ error: users.message });
     }
-    return res.status(200).json({ message: users.message, data: users.data });
-  }
-
-  @Post()
-  @ApiOperation({
-    summary: 'Create a new user',
-    description: 'Endpoint to create a new user',
-  })
-  @ApiCreatedResponse({
-    type: CreateUserResponseDto,
-    description: 'The user has been successfully created.',
-  })
-  @ApiBadRequestResponse({
-    type: CreateUserErrorResponseDto,
-    description: 'User exists',
-  })
-  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
-  async createUser(
-    @Body() createUserDto: CreateUserRequestDto,
-    @Res() res: Response,
-  ): Promise<Response> {
-    const user = await this.userService.createUser(createUserDto);
-    if (user.success)
-      return res.status(201).json({
-        message: 'User created successfully',
-        data: user,
-      });
-    return res.status(400).json({ message: user.message });
+    return res
+      .status(HttpStatus.OK)
+      .json({ message: users.message, data: users.data });
   }
 
   @Get(':id')
@@ -133,8 +97,10 @@ export class UserController {
   ) {
     const user = await this.userService.getUserById(id);
     if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+      return res.status(HttpStatus.BAD_REQUEST).json({ error: user.message });
     }
-    return res.status(HttpStatus.OK).json(user);
+    return res
+      .status(HttpStatus.OK)
+      .json({ message: user.message, data: user.data });
   }
 }

@@ -5,6 +5,7 @@ import configuration from './config/configuration';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './modules/users/users.module';
+import { AuthenticationsModule } from './modules/authentications/authentications.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { UsersModule } from './modules/users/users.module';
     }),
     SequelizeModule.forRoot(configuration.database),
     UsersModule,
+    AuthenticationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

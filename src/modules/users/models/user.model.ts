@@ -29,9 +29,6 @@ export class User extends Model<User> implements IUser {
   @Column
   email: string;
 
-  @Column
-  verifiedAt?: Date;
-
   @DeletedAt
   deletedAt?: any;
 }

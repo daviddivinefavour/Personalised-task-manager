@@ -18,10 +18,7 @@ export class UserService {
     const user = await this.userRepository.getUserByEmail(email);
     if (!user) {
       this.logger.error('Unable to retrieve user with the email: ', { email });
-      return this.responseService.returnResult({
-        success: false,
-        message: 'Unable to retrieve user',
-      });
+      return this.responseService.failResult('Unable to retrieve user');
     }
     return this.responseService.returnResult({
       success: true,
@@ -34,10 +31,7 @@ export class UserService {
     const user = await this.userRepository.getUserById(id);
     if (!user) {
       this.logger.error('Unable to retrieve user with the id: ', { id });
-      return this.responseService.returnResult({
-        success: false,
-        message: 'Unable to retrieve user',
-      });
+      return this.responseService.failResult('Unable to retrieve user');
     }
     return this.responseService.returnResult({
       success: true,
@@ -60,16 +54,17 @@ export class UserService {
   }
 
   async createUser(createUserDto: TCreateUser): Promise<IResponseData> {
-    this.logger.log('Creating a new user', { createUserDto });
     let user = await this.userRepository.getUserByEmail(createUserDto.email);
-    if (user)
+    if (user) {
+      this.logger.error('Failed to create user');
       return this.responseService.failResult(
         'Email already registered, try logging in',
       );
+    }
 
     user = await this.userRepository.createUser({
       id: v4(),
-      ...(createUserDto as TCreateUser),
+      ...createUserDto,
     });
     return this.responseService.returnResult({
       success: true,

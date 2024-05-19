@@ -1,4 +1,4 @@
-import { Controller, Get, Res } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
 import { Response } from 'express';
@@ -19,6 +19,6 @@ export class AppController {
     description: 'Successful',
   })
   getWelcome(@Res() res: Response): Response {
-    return res.status(200).json({ message: 'Welcome to Niyo-Todo' });
+    return res.status(HttpStatus.OK).json({ message: 'Welcome to Niyo-Todo' });
   }
 }

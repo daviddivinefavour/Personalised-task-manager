@@ -5,7 +5,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.sequelize.transaction(async (transaction) => {
       await queryInterface.createTable(
-        'users',
+        'authentications',
         {
           id: {
             allowNull: false,
@@ -13,20 +13,25 @@ module.exports = {
             autoIncrement: false,
             type: Sequelize.UUID,
           },
-          firstName: {
-            type: Sequelize.STRING,
+          password: {
             allowNull: false,
-            field: 'first_name',
+            type: Sequelize.STRING,
           },
-          lastName: {
-            type: Sequelize.STRING,
-            allowNull: false,
-            field: 'last_name',
+          lastSeen: {
+            allowNull: true,
+            type: Sequelize.DATE,
+            field: 'last_seen',
           },
-          email: {
-            type: Sequelize.STRING,
+          userId: {
             allowNull: false,
-            unique: true,
+            type: Sequelize.UUID,
+            field: 'user_id',
+            references: {
+              model: 'users',
+              key: 'id',
+            },
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
           },
           createdAt: {
             allowNull: false,
@@ -51,7 +56,7 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.sequelize.transaction(async (transaction) => {
-      await queryInterface.dropTable('users', transaction);
+      await queryInterface.dropTable('authentications', transaction);
     });
   },
 };

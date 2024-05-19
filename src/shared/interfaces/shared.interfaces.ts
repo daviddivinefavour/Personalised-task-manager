@@ -1,7 +1,6 @@
-export interface IPayload {
+export interface IJwtPayload {
   id: string;
   email: string;
-  isErrandPerson: boolean;
 }
 
 export interface IRequestWithUser extends Request {

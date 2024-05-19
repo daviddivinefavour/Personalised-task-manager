@@ -3,7 +3,9 @@ export interface IUser {
   firstName: string;
   lastName: string;
   email: string;
-  verifiedAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date;
 }
 
 export type TCreateUser = Pick<IUser, 'firstName' | 'lastName' | 'email'>;
