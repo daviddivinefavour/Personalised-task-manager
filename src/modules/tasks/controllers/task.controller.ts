@@ -31,6 +31,8 @@ import {
   CreateTaskErrorResponseDto,
   CreateTaskRequestDto,
   CreateTaskResponseDto,
+  DeleteTaskErrorResponseDto,
+  DeleteTaskSuccessResponseDto,
   GetTaskResponseDto,
   GetTasksErrorResponseDto,
   GetTasksSuccessResponseDto,
@@ -177,9 +179,11 @@ export class TaskController {
   })
   @ApiOkResponse({
     description: 'Task deleted successfully',
+    type: DeleteTaskSuccessResponseDto,
   })
   @ApiBadRequestResponse({
-    description: 'Invalid task ID',
+    description: 'Fails to delete task',
+    type: DeleteTaskErrorResponseDto,
   })
   @ApiParam({
     name: 'id',

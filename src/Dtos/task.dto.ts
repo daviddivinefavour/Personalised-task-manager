@@ -1,18 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, MinLength } from 'class-validator';
-import { IResponseData } from 'src/shared/interfaces/shared.interfaces';
 import { ITask } from 'src/modules/tasks/interfaces/task.interface';
 import { TASK_STATUS } from 'src/config/constants';
 import { PaginationMetaDto } from './default.dto';
 
-export class GetTaskResponseDto implements IResponseData<ITask> {
-  @ApiProperty({
-    type: Boolean,
-    description: 'Api status',
-    example: true,
-  })
-  success: boolean;
-
+export class GetTaskResponseDto {
   @ApiProperty({
     description: 'Response message',
     example: 'Task retrieved successfully',
@@ -61,14 +53,7 @@ export class CreateTaskRequestDto {
   status: TASK_STATUS;
 }
 
-export class CreateTaskResponseDto implements IResponseData<ITask> {
-  @ApiProperty({
-    type: Boolean,
-    description: 'API status',
-    example: true,
-  })
-  success: boolean;
-
+export class CreateTaskResponseDto {
   @ApiProperty({
     description: 'Response message',
     example: 'Task created successfully',
@@ -88,14 +73,7 @@ export class CreateTaskResponseDto implements IResponseData<ITask> {
   data: ITask;
 }
 
-export class CreateTaskErrorResponseDto implements IResponseData<null> {
-  @ApiProperty({
-    type: Boolean,
-    description: 'API status',
-    example: false,
-  })
-  success: boolean;
-
+export class CreateTaskErrorResponseDto {
   @ApiProperty({
     description: 'Response error message',
     example: 'Task creation failed',
@@ -146,16 +124,7 @@ export class PaginatedTasksDto {
   pagination: PaginationMetaDto;
 }
 
-export class GetTasksSuccessResponseDto
-  implements IResponseData<PaginatedTasksDto>
-{
-  @ApiProperty({
-    type: Boolean,
-    description: 'API status',
-    example: true,
-  })
-  success: boolean;
-
+export class GetTasksSuccessResponseDto {
   @ApiProperty({
     type: String,
     description: 'Message from API',
@@ -170,17 +139,25 @@ export class GetTasksSuccessResponseDto
   data: PaginatedTasksDto;
 }
 
-export class GetTasksErrorResponseDto implements IResponseData<null> {
-  @ApiProperty({
-    type: Boolean,
-    description: 'Api status',
-    example: false,
-  })
-  success: boolean;
-
+export class GetTasksErrorResponseDto {
   @ApiProperty({
     description: 'Response error message',
     example: 'Unable to retrieve tasks for the user',
+  })
+  error: string;
+}
+
+export class DeleteTaskErrorResponseDto {
+  @ApiProperty({
+    description: 'Response error message',
+    example: 'Unable to delete task',
+  })
+  error: string;
+}
+export class DeleteTaskSuccessResponseDto {
+  @ApiProperty({
+    description: 'Response error message',
+    example: 'Task deleted successfully',
   })
   error: string;
 }

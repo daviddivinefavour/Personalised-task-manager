@@ -8,14 +8,7 @@ import {
   ISignUp,
 } from 'src/modules/authentications/interfaces/authentication.interface';
 
-export class GetUserSuccessResponseDto implements IResponseData<IUser> {
-  @ApiProperty({
-    type: Boolean,
-    description: 'Api status',
-    example: true,
-  })
-  success: boolean;
-
+export class GetUserSuccessResponseDto {
   @ApiProperty({
     type: String,
     description: 'Message from api',
@@ -36,14 +29,7 @@ export class GetUserSuccessResponseDto implements IResponseData<IUser> {
   data: IUser;
 }
 
-export class GetUsersSuccessResponseDto implements IResponseData<IUser[]> {
-  @ApiProperty({
-    type: Boolean,
-    description: 'Api status',
-    example: true,
-  })
-  success: boolean;
-
+export class GetUsersSuccessResponseDto {
   @ApiProperty({
     type: String,
     description: 'Message from api',
@@ -66,16 +52,7 @@ export class GetUsersSuccessResponseDto implements IResponseData<IUser[]> {
   data: IUser[];
 }
 
-export class CreateUserResponseDto
-  implements IResponseData<ISuccessfulAuthenticationData>
-{
-  @ApiProperty({
-    type: Boolean,
-    description: 'Api status',
-    example: true,
-  })
-  success: boolean;
-
+export class CreateUserResponseDto {
   @ApiProperty({
     description: 'Response message',
     example: 'Account registered successfully',
@@ -143,14 +120,7 @@ export class CreateUserRequestDto implements ISignUp {
   confirmPassword: string;
 }
 
-export class CreateUserErrorResponseDto implements IResponseData<null> {
-  @ApiProperty({
-    type: Boolean,
-    description: 'Api status',
-    example: false,
-  })
-  success: boolean;
-
+export class CreateUserErrorResponseDto {
   @ApiProperty({
     description: 'Response error message',
     example: 'Email already registered, try logging in',
@@ -158,14 +128,7 @@ export class CreateUserErrorResponseDto implements IResponseData<null> {
   error: string;
 }
 
-export class GetUserBadRequestErrorResponseDto implements IResponseData<null> {
-  @ApiProperty({
-    type: Boolean,
-    description: 'Api status',
-    example: false,
-  })
-  success: boolean;
-
+export class GetUserBadRequestErrorResponseDto {
   @ApiProperty({
     description: 'Response error message',
     example: 'Unable to retrieve user',

@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString, MinLength } from 'class-validator';
 import { ISuccessfulAuthenticationData } from 'src/modules/authentications/interfaces/authentication.interface';
-import { IResponseData } from 'src/shared/interfaces/shared.interfaces';
 
 export class LoginRequestDto {
   @IsEmail({}, { message: 'Please provide a valid email' })
@@ -20,16 +19,7 @@ export class LoginRequestDto {
   password: string;
 }
 
-export class LoginSuccessResponseDto
-  implements IResponseData<ISuccessfulAuthenticationData>
-{
-  @ApiProperty({
-    type: Boolean,
-    description: 'Api status',
-    example: true,
-  })
-  success: boolean;
-
+export class LoginSuccessResponseDto {
   @ApiProperty({
     description: 'Response message',
     example: 'User login successfully',
@@ -54,14 +44,7 @@ export class LoginSuccessResponseDto
   data: ISuccessfulAuthenticationData;
 }
 
-export class LoginErrorResponseDto implements IResponseData<null> {
-  @ApiProperty({
-    type: Boolean,
-    description: 'Api status',
-    example: false,
-  })
-  success: boolean;
-
+export class LoginErrorResponseDto {
   @ApiProperty({
     description: 'Response error message',
     example: 'Invalid email or password provided',
