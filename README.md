@@ -35,19 +35,19 @@ $ yarn build
 
 ```bash
 # development
-$ yarn run start
+$ yarn start
 
 # watch mode
-$ yarn run start:dev
+$ yarn start:dev
 
 # production mode
-$ yarn run start:prod
+$ yarn start:prod
 ```
 
 ### Usage
 
-<p>After app spin up either on <strong>development</strong> mode or <strong>staging</strong>, you can make calls to the server from the [documentation](http://localhost:3500/api/v1/docs) (on an assumption that you had set your NODE_ENV=3500).</p>
-<p>You can also access the web client for realtime data from the [host](http://localhost:3500)</p>
+After app spin up either on <strong>development</strong> mode, you can make calls to the server from the [documentation](http://localhost:3500/api/v1/docs) (on an assumption that you had set your NODE_ENV=3500). <br>
+You can also access the web client for realtime data from the [host](http://localhost:3500)
 
 ## Authors Contact Information
 
