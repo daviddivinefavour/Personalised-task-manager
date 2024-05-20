@@ -1,4 +1,5 @@
-const socket = io('http://localhost:3500'); // Adjust the URL if needed
+const origin = window.location.origin;
+const socket = io(origin);
 const EVENT_TYPE = {
   CREATE: 'create',
   DELETE: 'delete',
