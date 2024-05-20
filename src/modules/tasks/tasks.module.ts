@@ -13,6 +13,7 @@ import { Task } from './models/task.model';
 import { TaskRepository } from './repositories/task.repo';
 import { TaskService } from './services/task.service';
 import { TaskController } from './controllers/task.controller';
+import { TaskGateway } from 'src/shared/gateways/websocket.gateway';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { TaskController } from './controllers/task.controller';
     }),
   ],
   providers: [
+    TaskGateway,
     ResponseService,
     HelpersService,
     Logger,
