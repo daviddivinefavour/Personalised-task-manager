@@ -13,12 +13,17 @@ import { TOKEN_SECRET } from './config/constants';
 import { JwtStrategy } from './shared/strategies/jwt.strategy';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './shared/guards/jwt.guard';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 // import { AuthenticationMiddleware } from './middlewares/authentication.middleware';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
     }),
     SequelizeModule.forRoot(configuration.database),
     UsersModule,
