@@ -28,7 +28,10 @@ export class TaskRepository {
     updateTaskDto: IUpdateTask,
   ): Promise<[number, Task[]]> {
     return this.taskEntity.update(updateTaskDto, {
-      where: { id: taskId },
+      where: {
+        userId: updateTaskDto.userId,
+        id: taskId,
+      },
       returning: true,
     });
   }

@@ -13,6 +13,7 @@ import {
   UsePipes,
   ValidationPipe,
   Query,
+  Put,
 } from '@nestjs/common';
 import { TaskService } from '../services/task.service';
 import { Request, Response } from 'express';
@@ -36,6 +37,7 @@ import {
   GetTaskResponseDto,
   GetTasksErrorResponseDto,
   GetTasksSuccessResponseDto,
+  UpdateTaskResponseDto,
 } from 'src/Dtos/task.dto';
 import { JwtAuthGuard } from 'src/shared/guards/jwt.guard';
 import { getUserIdFromRequest } from 'src/shared/utils/authentication.utils';
@@ -162,6 +164,51 @@ export class TaskController {
     });
     if (result.success) {
       return res.status(HttpStatus.CREATED).json({
+        message: result.message,
+        data: result.data,
+      });
+    }
+    return res.status(HttpStatus.BAD_REQUEST).json({ error: result.message });
+  }
+
+  @Put('/:id')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth('access-token')
+  @ApiOperation({
+    summary: 'Update a task',
+    description: 'Endpoint to update a  task',
+  })
+  @ApiBody({ type: CreateTaskRequestDto })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'The UUID of the task to update.',
+    type: String,
+    example: '51fe4e77-32b2-4402-8e3f-6dac90fc9c0a',
+  })
+  @ApiCreatedResponse({
+    type: UpdateTaskResponseDto,
+    description: 'The task has been updated successfully.',
+  })
+  @ApiBadRequestResponse({
+    type: CreateTaskErrorResponseDto,
+    description: 'Task update failed',
+  })
+  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+  async updateTask(
+    @Param('id') id: string,
+    @Body() createTaskDto: CreateTaskRequestDto,
+    @Req() req: Request,
+    @Res() res: Response,
+  ): Promise<Response> {
+    const userId = getUserIdFromRequest(req);
+    const result = await this.taskService.updateTask(id, {
+      ...createTaskDto,
+      userId,
+    });
+    if (result.success) {
+      return res.status(HttpStatus.OK).json({
         message: result.message,
         data: result.data,
       });
