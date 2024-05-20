@@ -1,7 +1,7 @@
 {
   "name": "niyo-todo-api-service",
   "version": "0.0.1",
-  "description": "",
+  "description": "API service for the Niyo task manager",
   "author": "Divinefavour David",
   "private": true,
   "license": "UNLICENSED",

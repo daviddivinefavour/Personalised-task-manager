@@ -1,35 +1,34 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Niyo Task Manager API Service
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+API service for the Niyo task manager
 
-## Installation
+## Acquisition and setup
 
 ```bash
+$ git clone https://github.com/daviddivinefavour/Personalised-task-manager.git
+$ cd Personalised-task-manager
 $ yarn install
+```
+
+Set up environment variables, by renaming the example env file and filling up with the correct details.
+
+```bash
+$ mv .env.example .env && nano .env
+```
+
+Set up spin up the database - Postgres.
+
+```bash
+$ yarn db:create
+$ yarn db:migrate
+```
+
+Build the application.
+
+```bash
+$ yarn build
 ```
 
 ## Running the app
@@ -45,29 +44,14 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
-## Test
+### Usage
 
-```bash
-# unit tests
-$ yarn run test
+<p>After app spin up either on <strong>development</strong> mode or <strong>staging</strong>, you can make calls to the server from the [documentation](http://localhost:3500/api/v1/docs) (on an assumption that you had set your NODE_ENV=3500).</p>
+<p>You can also access the web client for realtime data from the [host](http://localhost:3500)</p>
 
-# e2e tests
-$ yarn run test:e2e
+## Authors Contact Information
 
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+- Author - Divinefavour David
+- Twitter - [@Divinefavour_DC](https://twitter.com/Divinefavour_DC)
+- LinkedIn - [divinefavour-david](https://www.linkedin.com/in/divinefavour-david/)
+- Gmail - [divinefavour.c.david@gmail.com](mailto:divinefavour.c.david@gmail.com)
