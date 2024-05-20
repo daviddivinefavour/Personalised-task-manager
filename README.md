@@ -55,3 +55,7 @@ You can also access the web client for realtime data from the [host](http://loca
 - Twitter - [@Divinefavour_DC](https://twitter.com/Divinefavour_DC)
 - LinkedIn - [divinefavour-david](https://www.linkedin.com/in/divinefavour-david/)
 - Gmail - [divinefavour.c.david@gmail.com](mailto:divinefavour.c.david@gmail.com)
+
+Please note:
+* This documentation assumes you have Postgres server,node.js, Git and Yarn package manager installed on your system.
+
