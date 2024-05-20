@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, MinLength } from 'class-validator';
+import { IsEnum, IsString, MinLength } from 'class-validator';
 import { ITask } from 'src/modules/tasks/interfaces/task.interface';
 import { TASK_STATUS } from 'src/config/constants';
 import { PaginationMetaDto } from './default.dto';
@@ -44,6 +44,7 @@ export class CreateTaskRequestDto {
   })
   description: string;
 
+  @IsEnum(TASK_STATUS)
   @IsString()
   @MinLength(1, { message: 'Status is mandatory' })
   @ApiProperty({
@@ -158,6 +159,34 @@ export class DeleteTaskSuccessResponseDto {
   @ApiProperty({
     description: 'Response error message',
     example: 'Task deleted successfully',
+  })
+  error: string;
+}
+
+export class UpdateTaskResponseDto {
+  @ApiProperty({
+    description: 'Response message',
+    example: 'Task updated successfully',
+  })
+  message: string;
+
+  @ApiProperty({
+    description: 'Updated task data object',
+    example: {
+      id: '123e4567-e89b-12d3-a456-426614174000',
+      title: 'Complete homework',
+      description: 'Finish math and science homework by tomorrow',
+      status: TASK_STATUS.COMPLETED,
+      userId: '123e4567-e89b-12d3-a456-426614174000',
+    },
+  })
+  data: ITask;
+}
+
+export class UpdateTaskErrorResponseDto {
+  @ApiProperty({
+    description: 'Response error message',
+    example: 'Unable to update task',
   })
   error: string;
 }

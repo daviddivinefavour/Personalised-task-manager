@@ -2,7 +2,6 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IUser } from 'src/modules/users/interfaces/user.interface';
 import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
 import { IsMatch } from 'src/shared/decorators/is-match.decorator';
-import { IResponseData } from 'src/shared/interfaces/shared.interfaces';
 import {
   ISuccessfulAuthenticationData,
   ISignUp,

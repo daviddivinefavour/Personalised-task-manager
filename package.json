@@ -1,7 +1,7 @@
 {
   "name": "niyo-todo-api-service",
   "version": "0.0.1",
-  "description": "",
+  "description": "API service for the Niyo task manager",
   "author": "Divinefavour David",
   "private": true,
   "license": "UNLICENSED",
@@ -31,8 +31,11 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/passport": "^10.0.3",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/platform-socket.io": "^10.3.8",
     "@nestjs/sequelize": "^10.0.1",
+    "@nestjs/serve-static": "^4.0.2",
     "@nestjs/swagger": "^7.3.1",
+    "@nestjs/websockets": "^10.3.8",
     "@types/bcrypt": "^5.0.2",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
@@ -46,6 +49,7 @@
     "rxjs": "^7.8.1",
     "sequelize": "^6.37.2",
     "sequelize-typescript": "^2.1.6",
+    "socket.io": "^4.7.5",
     "uuid": "^9.0.1",
     "winston": "^3.13.0"
   },

@@ -42,4 +42,8 @@ export class Task extends Model<Task> {
 
   @DeletedAt
   deletedAt?: Date;
+
+  async fetchAssociatedUser() {
+    return await this.$get('user');
+  }
 }

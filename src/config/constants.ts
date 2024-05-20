@@ -14,3 +14,9 @@ export enum TASK_STATUS {
   IN_PROGRESS = 'in-progress',
   COMPLETED = 'completed',
 }
+
+export enum TASK_GATEWAY_EVENT_METHOD {
+  CREATE = 'create',
+  DELETE = 'delete',
+  UPDATE = 'update',
+}
