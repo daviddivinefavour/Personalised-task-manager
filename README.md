@@ -1,13 +1,13 @@
-# Niyo Task Manager API Service
+# Task Manager API Service
 
 ## Description
 
-API service for the Niyo task manager
+API service for task manager
 
 ## Acquisition and setup
 
 ```bash
-$ git clone https://github.com/daviddivinefavour/Personalised-task-manager.git
+$ git clone https://github.com/daviddivinefavour/task-manager.git
 $ cd Personalised-task-manager
 $ yarn install
 ```
