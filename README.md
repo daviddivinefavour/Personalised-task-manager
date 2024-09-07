@@ -8,7 +8,7 @@ API service for task manager
 
 ```bash
 $ git clone https://github.com/daviddivinefavour/task-manager.git
-$ cd Personalised-task-manager
+$ cd task-manager
 $ yarn install
 ```
 
