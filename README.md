@@ -57,5 +57,5 @@ You can also access the web client for realtime data from the [host](http://loca
 - Gmail - [divinefavour.c.david@gmail.com](mailto:divinefavour.c.david@gmail.com)
 
 Please note:
-* This documentation assumes you have Postgres server,node.js, Git and Yarn package manager installed on your system.
+* This documentation assumes you have Postgres server,node.js, Git and Yarn package manager installed on your host computer.
 
